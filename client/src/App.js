@@ -4,11 +4,10 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import TopNav from './components/TopNav';
 
-
 function App() {
   return (
     <BrowserRouter>
-      <TopNav/>
+      <TopNav />
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route exact path='/register' element={<Register />} />
