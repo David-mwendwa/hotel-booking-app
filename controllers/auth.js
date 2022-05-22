@@ -1,5 +1,8 @@
-export const register = (req, res) => {
-  res.status(201).send('registered');
+import User from '../models/user.js';
+
+export const register = async (req, res) => {
+  const user = await User.create(req.body);
+  res.status(201).json(user);
 };
 
 export const login = (req, res) => {
