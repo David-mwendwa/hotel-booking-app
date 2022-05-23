@@ -10,7 +10,7 @@ dotenv.config();
 import authRouter from './routes/auth.js';
 
 // middlewares
-app.use(cors());
+app.use(cors()); // NOT REALLY USABLE
 app.use(express.json());
 app.use(morgan('dev'));
 
