@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { register, clearErrors } from '../redux/actions/auth';
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.auth);
+  const { error, isAuthenticated } = state;
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success('Registered successfully');
+      setName('');
+      setEmail('');
+      setPassword('');
+      setTimeout(() => navigate('/'), 3000);
+    }
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, isAuthenticated, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const input = { name, email, password };
-      const { data } = await axios.post('/api/v1/auth/register', input);
-      if (data.ok) toast.success('Registered successfully');
-      setTimeout(() => navigate('/'), 3000);
-    } catch (error) {
-      toast.error(error.response.data.msg);
-    }
+    const userInput = { name, email, password };
+    dispatch(register(userInput));
   };
 
   return (

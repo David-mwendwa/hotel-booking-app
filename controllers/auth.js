@@ -5,15 +5,15 @@ import { BadRequestError } from '../errors/index.js';
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
-    throw new BadRequestError('please provide all values');
+    throw new BadRequestError('Please provide all values');
   }
   const userAExists = await User.findOne({ email });
   if (userAExists) {
-    throw new BadRequestError('email is already in use');
+    throw new BadRequestError('Email is already in use');
   }
   const user = new User({ name, email, password });
   await user.save();
-  res.status(StatusCodes.CREATED).json({ ok: true });
+  res.status(StatusCodes.CREATED).json({ user, ok: true });
 };
 
 export const login = (req, res) => {
