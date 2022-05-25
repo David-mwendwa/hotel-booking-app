@@ -25,7 +25,6 @@ export const register = (userInput) => async (dispatch) => {
 };
 
 export const login = (userInput) => async (dispatch) => {
-  console.log({ userInput });
   try {
     dispatch({ type: LOGIN_USER_REQUEST });
     const config = { headers: { 'Content-Type': 'application/json' } };

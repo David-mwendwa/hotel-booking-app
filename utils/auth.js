@@ -6,7 +6,7 @@ export const isTokenValid = ({ token }) =>
 
 // create, send token & save in the cookie.
 // sendToken receives authenticated user, statusCode & response - called on login
-export const sendToken = ({user, statusCode, res}) => {
+export const sendToken = ({ user, statusCode, res }) => {
   // create token
   const token = user.createJWT();
   console.log('token', { token });

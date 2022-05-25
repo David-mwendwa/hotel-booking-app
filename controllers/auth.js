@@ -1,5 +1,4 @@
 import User from '../models/user.js';
-import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '../errors/index.js';
 import { sendToken } from '../utils/auth.js';
@@ -31,7 +30,6 @@ export const login = async (req, res) => {
   if (!passwordMatch) {
     throw new BadRequestError('Incorrect password or email');
   }
-  // validate token
   user.password = undefined;
   sendToken({ user, StatusCode: StatusCodes.OK, res });
 };
