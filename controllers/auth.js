@@ -16,8 +16,21 @@ export const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ user, ok: true });
 };
 
-export const login = (req, res) => {
-  res.status(200).send('logged in');
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new BadRequestError('Please provide all values');
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new BadRequestError('Incorrect password or email');
+  }
+  const passwordMatch = user.comparePassword(password);
+  if (!passwordMatch) {
+    throw new BadRequestError('Incorrect password or email');
+  }
+  // validate token
+  res.status(StatusCodes.OK).json({ user, ok: true });
 };
 
 export const logout = (req, res) => {
