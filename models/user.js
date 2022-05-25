@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema(
   {
@@ -17,6 +18,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Please provide password'],
       min: 6,
+    },
+    role: {
+      type: String,
+      enum: ['admin', 'seller', 'user'],
+      default: 'user',
     },
     stripe_account_id: '',
     stripe_seller: {},
@@ -41,6 +47,17 @@ userSchema.pre('save', function (next) {
 
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// return JWT token => invoked as user.createJWT()
+userSchema.methods.createJWT = function () {
+  return jwt.sign(
+    { userId: this._id, role: this.role },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_LIFETIME,
+    }
+  );
 };
 
 export default mongoose.model('User', userSchema);

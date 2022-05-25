@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import connectDB from './db/connect.js';
 const app = express();
 dotenv.config();
@@ -18,6 +19,7 @@ import notFoundMiddleware from './middleware/not-found.js';
 app.use(cors()); // NOT REALLY USABLE
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cookieParser());
 
 app.use('/api/v1/auth', authRouter);
 

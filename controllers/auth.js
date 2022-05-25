@@ -1,6 +1,8 @@
 import User from '../models/user.js';
+import jwt from 'jsonwebtoken';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '../errors/index.js';
+import { sendToken } from '../utils/auth.js';
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -30,7 +32,8 @@ export const login = async (req, res) => {
     throw new BadRequestError('Incorrect password or email');
   }
   // validate token
-  res.status(StatusCodes.OK).json({ user, ok: true });
+  user.password = undefined;
+  sendToken({ user, StatusCode: StatusCodes.OK, res });
 };
 
 export const logout = (req, res) => {
