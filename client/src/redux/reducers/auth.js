@@ -5,6 +5,8 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   CLEAR_ERRORS,
 } from '../types/auth';
 
@@ -34,12 +36,24 @@ export const authReducer = (state = initialState, action) => {
         isAuthenticated: action.payload.ok,
         user: action.payload.user,
       };
+    case LOGOUT_SUCCESS:
+      localStorage.removeItem('auth');
+      return {
+        loading: false,
+        isAuthenticated: false,
+        user: null,
+      };
     case REGISTER_USER_FAIL:
     case LOGIN_USER_FAIL:
       return {
         loading: false,
         isAuthenticated: false,
         user: null,
+        error: action.payload,
+      };
+    case LOGOUT_FAIL:
+      return {
+        ...state,
         error: action.payload,
       };
     case CLEAR_ERRORS:

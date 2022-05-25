@@ -9,7 +9,6 @@ export const isTokenValid = ({ token }) =>
 export const sendToken = ({ user, statusCode, res }) => {
   // create token
   const token = user.createJWT();
-  console.log('token', { token });
 
   // options for cookie
   const oneDay = 24 * 60 * 60 * 1000;

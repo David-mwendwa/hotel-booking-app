@@ -6,6 +6,8 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   CLEAR_ERRORS,
 } from '../types/auth';
 
@@ -32,6 +34,15 @@ export const login = (userInput) => async (dispatch) => {
     dispatch({ type: LOGIN_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: LOGIN_USER_FAIL, payload: error.response.data.msg });
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.get(`/api/v1/auth/logout`);
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.msg });
   }
 };
 
