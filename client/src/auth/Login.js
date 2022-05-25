@@ -2,20 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { register, clearErrors } from '../redux/actions/auth';
+import { login, clearErrors } from '../redux/actions/auth';
 import LoginForm from '../components/LoginForm';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.auth);
-  const { error, isAuthenticated } = state;
+  const { user, error, isAuthenticated } = state;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success('Login successful');
+      setEmail('');
+      setPassword('');
+      navigate('/');
+    }
+
+    if (error) {
+      toast.error(error);
+    }
+  }, [error, isAuthenticated, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    dispatch(login({ email, password }));
   };
 
   return (
