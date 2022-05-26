@@ -27,7 +27,6 @@ export const login = async (req, res) => {
     throw new BadRequestError('Incorrect password or email');
   }
   const passwordMatch = await user.comparePassword(password);
-  console.log({ passwordMatch });
   if (!passwordMatch) {
     throw new BadRequestError('Incorrect password or email');
   }
