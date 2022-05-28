@@ -19,7 +19,7 @@ const Login = () => {
       toast.success('Login successful');
       setEmail('');
       setPassword('');
-      navigate('/');
+      navigate('/dashboard');
     }
 
     if (error) {

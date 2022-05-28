@@ -21,7 +21,7 @@ const Register = () => {
       setName('');
       setEmail('');
       setPassword('');
-      setTimeout(() => navigate('/'), 3000);
+      navigate('/dashboard');
     }
     if (error) {
       toast.error(error);
