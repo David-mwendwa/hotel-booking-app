@@ -5,6 +5,7 @@ import Register from './auth/Register';
 import Login from './auth/Login';
 import TopNav from './components/TopNav';
 import Dashboard from './user/Dashboard';
+import DashboardSeller from './components/DashboardSeller';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -33,6 +34,15 @@ function App() {
           element={
             <Protected>
               <Dashboard />
+            </Protected>
+          }
+        />
+        <Route
+          exact
+          path='/dashboard/seller'
+          element={
+            <Protected>
+              <DashboardSeller />
             </Protected>
           }
         />
