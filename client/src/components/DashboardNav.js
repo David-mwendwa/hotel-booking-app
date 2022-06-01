@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// const isActive = (location, path) => {
-//   if (location.pathname === path) {
-//     return { color: '#ff9900' };
-//   } else {
-//     return { color: '#ffffff' };
-//   }
-// };
+const isActive = (location, path) => {
+  if (location.pathname === path) {
+    return { color: '#ff9900' };
+  } else {
+    return { color: '#ffffff' };
+  }
+};
 
 const DashboardNav = () => {
   const location = useLocation();
