@@ -13,6 +13,7 @@ export const register = async (req, res) => {
     throw new BadRequestError('Email is already in use');
   }
   const user = new User({ name, email, password });
+  console.log(user);
   await user.save();
   res.status(StatusCodes.CREATED).json({ user, ok: true });
 };
