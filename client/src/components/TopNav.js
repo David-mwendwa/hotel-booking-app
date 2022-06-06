@@ -19,6 +19,13 @@ const TopNav = () => {
         Home
       </Link>
       {isAuthenticated && (
+        <>
+          <Link to='/dashboard' className='nav-link'>
+            Dashboard
+          </Link>
+        </>
+      )}
+      {isAuthenticated && (
         <button onClick={handleLogout} className='btn btn-outline-primary'>
           Logout
         </button>

@@ -6,6 +6,7 @@ import Login from './auth/Login';
 import TopNav from './components/TopNav';
 import Dashboard from './user/Dashboard';
 import DashboardSeller from './components/DashboardSeller';
+import NewHotel from './hotels/NewHotel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -43,6 +44,15 @@ function App() {
           element={
             <Protected>
               <DashboardSeller />
+            </Protected>
+          }
+        />
+        <Route
+          exact
+          path='/hotels/new'
+          element={
+            <Protected>
+              <NewHotel />
             </Protected>
           }
         />
