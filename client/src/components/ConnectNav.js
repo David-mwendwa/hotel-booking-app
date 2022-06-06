@@ -17,6 +17,12 @@ const ConnectNav = () => {
           description={`Joined ${moment(user.createdAt).fromNow()}`}
         />
       </Card>
+      {user && user.stripe_seller && user.stripe_seller.charges_enabled && (
+        <>
+          <div>Pending balance</div>
+          <div>Payout setting</div>
+        </>
+      )}
     </div>
   );
 };
