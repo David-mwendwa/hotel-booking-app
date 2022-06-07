@@ -2,16 +2,16 @@ import React from 'react';
 import DashboardNav from '../components/DashboardNav';
 import ConnectNav from '../components/ConnectNav';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { HomeOutlined } from '@ant-design/icons';
 import { createConnectAccount } from '../redux/actions/stripe';
 
 const DashboardSeller = () => {
   const { loading, user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    console.log('handle Click', {loading, user, token});
-    createConnectAccount(token)
+  const handleClick = (token) => {
+    dispatch(createConnectAccount(token));
   };
 
   return (
@@ -45,7 +45,9 @@ const DashboardSeller = () => {
                 MERN partners with stripe to transfer earning to your bank
                 accounts
               </p>
-              <button onClick={handleClick} className='btn btn-primary mb-3'>
+              <button
+                onClick={() => handleClick(token)}
+                className='btn btn-primary mb-3'>
                 Setup Payouts
               </button>
               <p className='text-muted'>
