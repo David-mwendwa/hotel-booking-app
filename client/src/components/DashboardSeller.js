@@ -7,7 +7,8 @@ import { HomeOutlined } from '@ant-design/icons';
 import { createConnectAccount } from '../redux/actions/stripe';
 
 const DashboardSeller = () => {
-  const { loading, user, token } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.stripe);
   const dispatch = useDispatch();
 
   const handleClick = (token) => {
@@ -48,7 +49,7 @@ const DashboardSeller = () => {
               <button
                 onClick={() => handleClick(token)}
                 className='btn btn-primary mb-3'>
-                Setup Payouts
+                {loading ? 'Processing...' : 'Setup Payouts'}
               </button>
               <p className='text-muted'>
                 <small>

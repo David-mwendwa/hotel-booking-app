@@ -9,6 +9,7 @@ export const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer')) {
     token = authHeader.split(' ')[1];
+    //console.log({ token_b: token });
   }
   // check cookies
   else if (req.signedCookies && req.signedCookies.token) {
@@ -20,7 +21,7 @@ export const authenticateUser = async (req, res, next) => {
     throw new UnauthenticatedError('Authentication Invalid');
   }
   try {
-    const { userId, role } = isTokenValid({ token });
+    const { userId, role } = jwt.decode(token, process.env.JWT_SECRET);
     // attach the user and its permissions to the request object
     req.user = { userId, role };
     next();

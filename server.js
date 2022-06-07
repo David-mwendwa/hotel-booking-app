@@ -10,6 +10,7 @@ dotenv.config();
 
 // import routers
 import authRouter from './routes/auth.js';
+import stripeRouter from './routes/stripe.js';
 
 // import custom middlewares
 import errorHandlerMiddleware from './middleware/error-handler.js';
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/stripe', stripeRouter);
 
 // use error middlewares
 app.use(notFoundMiddleware);
