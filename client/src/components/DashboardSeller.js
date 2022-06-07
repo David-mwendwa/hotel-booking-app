@@ -4,9 +4,15 @@ import ConnectNav from '../components/ConnectNav';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { HomeOutlined } from '@ant-design/icons';
+import { createConnectAccount } from '../redux/actions/stripe';
 
 const DashboardSeller = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { loading, user, token } = useSelector((state) => state.auth);
+
+  const handleClick = () => {
+    console.log('handle Click', {loading, user, token});
+    createConnectAccount(token)
+  };
 
   return (
     <>
@@ -39,7 +45,9 @@ const DashboardSeller = () => {
                 MERN partners with stripe to transfer earning to your bank
                 accounts
               </p>
-              <button className='btn btn-primary mb-3'>Setup Payouts</button>
+              <button onClick={handleClick} className='btn btn-primary mb-3'>
+                Setup Payouts
+              </button>
               <p className='text-muted'>
                 <small>
                   You'll be redirected to stripe to complete the onboarding

@@ -10,13 +10,19 @@ import {
   CLEAR_ERRORS,
 } from '../types/auth';
 
-let initialState = { user: {}, isAuthenticated: false };
+let initialState = {};
 if (localStorage.getItem('auth')) {
   const { user, ok: isAuthenticated } = JSON.parse(
     localStorage.getItem('auth')
   );
-  initialState = { user, isAuthenticated };
+  initialState = Object.assign(JSON.parse(localStorage.getItem('auth')), {
+    user,
+    isAuthenticated,
+    loading: false,
+  });
 }
+
+console.log('from ls', JSON.parse(localStorage.getItem('auth')));
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +41,7 @@ export const authReducer = (state = initialState, action) => {
         loading: false,
         isAuthenticated: action.payload.ok,
         user: action.payload.user,
+        token: action.payload.token,
       };
     case LOGOUT_SUCCESS:
       localStorage.removeItem('auth');
