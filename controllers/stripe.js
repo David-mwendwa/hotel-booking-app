@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config()
 import Stripe from 'stripe';
 import queryString from 'query-string';
 import User from '../models/user.js';
@@ -7,7 +9,7 @@ import { BadRequestError } from '../errors/index.js';
 const stripe = Stripe(process.env.STRIPE_SECRET);
 
 export const createConnectAccount = async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user.userId).exec();
   // if the user doesn't have stripe_account_id, create new
   if (!user.stripe_account_id) {
     const account = await stripe.accounts.create({
@@ -23,7 +25,7 @@ export const createConnectAccount = async (req, res) => {
     account: user.stripe_account_id,
     refresh_url: process.env.STRIPE_REDIRECT_URL,
     return_url: process.env.STRIPE_REDIRECT_URL,
-    tyoe: 'account_onboarding',
+    type: 'account_onboarding',
   });
 
   // prefil any info such as email
@@ -31,9 +33,7 @@ export const createConnectAccount = async (req, res) => {
     'stripe_user[email]': user.email || undefined,
   });
 
-  // console.log('ACCOUN LINK', accountLink);
   let link = `${accountLink.url}?${queryString.stringify(accountLink)}`;
-  console.log('LOGIN LINK', link);
 
   res.status(StatusCodes.CREATED).json({ ok: true, link });
 };
