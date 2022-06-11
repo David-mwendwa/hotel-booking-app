@@ -15,7 +15,6 @@ export const createConnectAccount = async (req, res) => {
     const account = await stripe.accounts.create({
       type: 'express',
     });
-    console.log({ account });
     user.stripe_account_id = account.id;
     user.save();
   }
@@ -37,3 +36,4 @@ export const createConnectAccount = async (req, res) => {
 
   res.status(StatusCodes.CREATED).json({ ok: true, link });
 };
+

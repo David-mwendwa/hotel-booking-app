@@ -18,6 +18,7 @@ export const stripeReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         isCreated: action.payload.ok,
+        link: action.payload.link
       };
     case CREATE_CONNECT_ACCOUNT_FAIL:
       return {

@@ -3,6 +3,7 @@ import {
   CREATE_CONNECT_ACCOUNT_REQUEST,
   CREATE_CONNECT_ACCOUNT_SUCCESS,
   CREATE_CONNECT_ACCOUNT_FAIL,
+  CLEAR_ERRORS
 } from '../types/stripe';
 
 export const createConnectAccount = (token) => async (dispatch) => {
@@ -21,4 +22,8 @@ export const createConnectAccount = (token) => async (dispatch) => {
       payload: error.response.data.msg,
     });
   }
+};
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };

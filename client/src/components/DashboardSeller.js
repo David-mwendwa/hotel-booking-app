@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DashboardNav from '../components/DashboardNav';
 import ConnectNav from '../components/ConnectNav';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { HomeOutlined } from '@ant-design/icons';
-import { createConnectAccount } from '../redux/actions/stripe';
+import { createConnectAccount, clearErrors } from '../redux/actions/stripe';
+import { toast } from 'react-toastify';
 
 const DashboardSeller = () => {
   const { user, token } = useSelector((state) => state.auth);
-  const { loading } = useSelector((state) => state.stripe);
+  const { loading, isCreated, link, error } = useSelector((state) => state.stripe);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+    
+    if (isCreated) {
+      window.location.href = link
+    }
+  }, [dispatch, error, isCreated, link, loading]);
 
   const handleClick = (token) => {
     dispatch(createConnectAccount(token));
