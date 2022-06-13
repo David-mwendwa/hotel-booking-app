@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config()
+dotenv.config();
 import Stripe from 'stripe';
 import queryString from 'query-string';
 import User from '../models/user.js';
@@ -37,3 +37,13 @@ export const createConnectAccount = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ ok: true, link });
 };
 
+export const getAccountStatus = async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  const account = await stripe.accounts.retrieve(user.stripe_account_id);
+  const updatedUser = await User.findByIdAndUpdate(
+    user._id,
+    { stripe_seller: account },
+    { new: true }
+  ).select('-password');
+  res.status(StatusCodes.CREATED).json({ user: updatedUser });
+};
