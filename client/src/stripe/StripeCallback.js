@@ -1,0 +1,13 @@
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { LoadingOutlined } from '@ant-design/icons';
+
+const StripeCallback = () => {
+  return (
+    <div className='d-flex justify-content-center p-5'>
+      <LoadingOutlined className='display-1 h1 p-5 text-danger' />
+    </div>
+  );
+};
+
+export default StripeCallback;

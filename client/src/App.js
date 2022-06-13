@@ -9,6 +9,7 @@ import DashboardSeller from './components/DashboardSeller';
 import NewHotel from './hotels/NewHotel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import StripeCallback from './stripe/StripeCallback';
 
 function App() {
   return (
@@ -53,6 +54,15 @@ function App() {
           element={
             <Protected>
               <NewHotel />
+            </Protected>
+          }
+        />
+        <Route
+          exact
+          path='/stripe/callback'
+          element={
+            <Protected>
+              <StripeCallback />
             </Protected>
           }
         />
