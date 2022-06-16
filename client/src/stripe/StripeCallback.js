@@ -4,6 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccountStatus } from '../redux/actions/stripe';
 import { toast } from 'react-toastify';
+import { updateUserInLocalStorage } from '../redux/actions/auth.js';
 
 const StripeCallback = () => {
   const { user, token, error } = useSelector((state) => state.auth);
@@ -12,6 +13,7 @@ const StripeCallback = () => {
   useEffect(() => {
     if (token) {
       dispatch(getAccountStatus(token));
+      dispatch(updateUserInLocalStorage({ user, token }));
     }
 
     if (error) {
