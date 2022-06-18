@@ -12,6 +12,7 @@ const StripeCallback = () => {
 
   useEffect(() => {
     if (token) {
+      console.log(token)
       dispatch(getAccountStatus(token));
       dispatch(updateUserInLocalStorage({ user, token }));
     }
