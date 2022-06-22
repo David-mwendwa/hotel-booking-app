@@ -45,5 +45,6 @@ export const getAccountStatus = async (req, res) => {
     { stripe_seller: account },
     { new: true }
   ).select('-password');
+  console.log({updatedUser});
   res.status(StatusCodes.CREATED).json({ user: updatedUser });
 };

@@ -51,7 +51,6 @@ export const updateUserInLocalStorage = (user, next) => {
     let auth = JSON.parse(localStorage.getItem('auth'))
     auth.user = user;
     localStorage.setItem('auth', JSON.stringify(auth))
-    next()
   }
 }
 
